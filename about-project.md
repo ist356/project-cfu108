@@ -1,7 +1,7 @@
 # About My Project
 
-Student Name:  name
-Student Email:  email
+Student Name:  Chenyiwei Fu
+Student Email:  cfu108@syr.edu
 
 ### What it does
 
