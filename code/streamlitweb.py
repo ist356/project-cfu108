@@ -20,12 +20,28 @@ if st.button("Fetch Data"):
         df = parse_stock_data(json_data)
 
         # Plot the data
-        fig, ax = plt.subplots()
-        ax.plot(df['Date'], df['Close'], label='Close Price')
-        ax.set_title(f"Stock Prices for {symbol}")
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Close Price")
-        ax.legend()
+        fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 15))
+
+        # Close Price
+        ax1.plot(df['Date'], df['Close'], label='Close Price')
+        ax1.set_title(f"Close Prices for {symbol}")
+        ax1.set_xlabel("Date")
+        ax1.set_ylabel("Close Price")
+        ax1.legend()
+
+        # High Price
+        ax2.plot(df['Date'], df['High'], label='High Price', color='green')
+        ax2.set_title(f"High Prices for {symbol}")
+        ax2.set_xlabel("Date")
+        ax2.set_ylabel("High Price")
+        ax2.legend()
+
+        # Low Price
+        ax3.plot(df['Date'], df['Low'], label='Low Price', color='red')
+        ax3.set_title(f"Low Prices for {symbol}")
+        ax3.set_xlabel("Date")
+        ax3.set_ylabel("Low Price")
+        ax3.legend()
 
         st.pyplot(fig)
 
@@ -33,4 +49,4 @@ if st.button("Fetch Data"):
         st.write("Stock Data Table", df)
 
     except Exception as e:
-        st.error(f"Error: {e}")
+        st.error(e)
