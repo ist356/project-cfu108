@@ -41,32 +41,32 @@ if st.button("Fetch Data"):
             df = df[df['Date'] >= pd.to_datetime(start_date)]
 
             # Plot the data
-            fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 15))
+            fig, ax1 = plt.subplots(figsize=(10, 5))
 
             # Close Price
-            ax1.plot(df['Date'], df['Close'], label='Close Price')
+            ax1.plot(df['Date'], df['Close'], label='Close Price', color='blue')
             for period in ma_periods_list:
-                ax1.plot(df['Date'], df[f'MA_{period}'], label=f'MA {period}')
-            ax1.set_title(f"Close Prices for {symbol}")
+                ax1.plot(df['Date'], df[f'MA_{period}'], label=f'MA {period}', linestyle='--', alpha=0.7)
+
+            marker_size = 10 if len(df) < 100 else 1000 / len(df)
+            # High Price as scatter plot
+            ax1.scatter(df['Date'], df['High'], label='High Price', color='green', marker='^', s=marker_size)
+
+            # Low Price as scatter plot
+            ax1.scatter(df['Date'], df['Low'], label='Low Price', color='red', marker='v', s=marker_size)
+
+            ax1.set_title(f"Stock Prices for {symbol}")
             ax1.set_xlabel("Date")
-            ax1.set_ylabel("Close Price")
+            ax1.set_ylabel("Price")
             ax1.legend()
 
-            # High Price
-            ax2.plot(df['Date'], df['High'], label='High Price', color='green')
-            ax2.set_title(f"High Prices for {symbol}")
-            ax2.set_xlabel("Date")
-            ax2.set_ylabel("High Price")
-            ax2.legend()
-
-            # Low Price
-            ax3.plot(df['Date'], df['Low'], label='Low Price', color='red')
-            ax3.set_title(f"Low Prices for {symbol}")
-            ax3.set_xlabel("Date")
-            ax3.set_ylabel("Low Price")
-            ax3.legend()
-
             st.pyplot(fig)
+
+            # Display data table
+            st.write("Stock Data Table", df)
+
+            # Display data table
+            st.write("Stock Data Table", df)
 
             # Display data table
             st.write("Stock Data Table", df)
